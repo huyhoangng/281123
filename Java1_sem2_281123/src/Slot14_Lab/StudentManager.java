@@ -54,13 +54,97 @@ public class StudentManager /*extends Student*/ {
         } while (choice != 0);
     }
     private static void addStudent() {
+        if (studentCount < MAX_STUDENTS) {
+            // Nhập thông tin sinh viên từ người dùng
+            System.out.print("Enter student ID: ");
+            int id = scanner.nextInt();
+            scanner.nextLine(); // Đọc ký tự newline còn lại
 
+            System.out.print("Enter student name: ");
+            String name = scanner.nextLine();
+
+            System.out.print("Enter student date of birth: ");
+            String dateOfBirth = scanner.nextLine();
+
+            System.out.print("Enter student address: ");
+            String address = scanner.nextLine();
+
+            System.out.print("Enter student GPA: ");
+            double gpa = scanner.nextDouble();
+
+            // Tạo một đối tượng sinh viên mới
+            Student newStudent = new Student(id, name, dateOfBirth, address, gpa);
+
+            // Thêm sinh viên vào mảng
+            studentArray[studentCount] = newStudent;
+            studentCount++;
+
+            System.out.println("Student added successfully!");
+        } else {
+            System.out.println("Cannot add more students. Maximum limit reached.");
+        }
     }
     private static void editStudentById() {
+        System.out.print("Enter student ID to edit: ");
+        int idToEdit = scanner.nextInt();
+        boolean found = false;
 
+        for (int i = 0; i < studentCount; i++) {
+            if (studentArray[i].getId() == idToEdit) {
+                // Sinh viên được tìm thấy, thực hiện chỉnh sửa thông tin
+                found = true;
+
+                System.out.print("Enter new student name: ");
+                String newName = scanner.nextLine(); // Đọc ký tự newline còn lại
+                studentArray[i].setName(newName);
+
+                System.out.print("Enter new student date of birth: ");
+                String newDateOfBirth = scanner.nextLine();
+                studentArray[i].setDate(newDateOfBirth);
+
+                System.out.print("Enter new student address: ");
+                String newAddress = scanner.nextLine();
+                studentArray[i].setAddress(newAddress);
+
+                System.out.print("Enter new student GPA: ");
+                double newGpa = scanner.nextDouble();
+                studentArray[i].setGpa(newGpa);
+
+                System.out.println("Student information updated successfully!");
+                break; // Kết thúc vòng lặp sau khi tìm thấy và chỉnh sửa
+            }
+        }
+
+        if (!found) {
+            System.out.println("Student with ID " + idToEdit + " not found.");
+        }
     }
     private static void deleteStudentById() {
+        System.out.print("Enter student ID to delete: ");
+        int idToDelete = scanner.nextInt();
+        boolean found = false;
 
+        for (int i = 0; i < studentCount; i++) {
+            if (studentArray[i].getId() == idToDelete) {
+                // Sinh viên được tìm thấy, thực hiện xóa
+                found = true;
+
+                // Dời tất cả sinh viên phía sau lên một vị trí để xóa sinh viên hiện tại
+                for (int j = i; j < studentCount - 1; j++) {
+                    studentArray[j] = studentArray[j + 1];
+                }
+
+                // Giảm số lượng sinh viên
+                studentCount--;
+
+                System.out.println("Student with ID " + idToDelete + " deleted successfully!");
+                break; // Kết thúc vòng lặp sau khi tìm thấy và xóa
+            }
+        }
+
+        if (!found) {
+            System.out.println("Student with ID " + idToDelete + " not found.");
+        }
     }
 
     private static void sortStudentByGPA() {

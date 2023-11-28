@@ -3,15 +3,11 @@ package Slot14_Lab;
 import java.lang.reflect.Array;
 import java.util.*;
 
-public class StudentManager /*extends Student*/ {
+public class StudentManager {
     private static final int MAX_STUDENTS = 100;
     private static Student[] studentArray = new Student[MAX_STUDENTS];
     private static int studentCount = 0;
     private static Scanner scanner = new Scanner(System.in);
-//    public StudentManager(int id, String name, String date, String address, double gpa) {
-//        super(id, name, date, address, gpa);
-//    }
-
 
     public static void main(String[] args) {
         int choice;
@@ -55,7 +51,7 @@ public class StudentManager /*extends Student*/ {
     }
     private static void addStudent() {
         if (studentCount < MAX_STUDENTS) {
-            // Nhập thông tin sinh viên từ người dùng
+        
             System.out.print("Enter student ID: ");
             int id = scanner.nextInt();
             scanner.nextLine(); // Đọc ký tự newline còn lại
@@ -72,10 +68,10 @@ public class StudentManager /*extends Student*/ {
             System.out.print("Enter student GPA: ");
             double gpa = scanner.nextDouble();
 
-            // Tạo một đối tượng sinh viên mới
+          
             Student newStudent = new Student(id, name, dateOfBirth, address, gpa);
 
-            // Thêm sinh viên vào mảng
+           
             studentArray[studentCount] = newStudent;
             studentCount++;
 
@@ -91,11 +87,11 @@ public class StudentManager /*extends Student*/ {
 
         for (int i = 0; i < studentCount; i++) {
             if (studentArray[i].getId() == idToEdit) {
-                // Sinh viên được tìm thấy, thực hiện chỉnh sửa thông tin
+                
                 found = true;
 
                 System.out.print("Enter new student name: ");
-                String newName = scanner.nextLine(); // Đọc ký tự newline còn lại
+                String newName = scanner.nextLine();
                 studentArray[i].setName(newName);
 
                 System.out.print("Enter new student date of birth: ");
@@ -111,7 +107,7 @@ public class StudentManager /*extends Student*/ {
                 studentArray[i].setGpa(newGpa);
 
                 System.out.println("Student information updated successfully!");
-                break; // Kết thúc vòng lặp sau khi tìm thấy và chỉnh sửa
+                break; 
             }
         }
 
@@ -126,19 +122,18 @@ public class StudentManager /*extends Student*/ {
 
         for (int i = 0; i < studentCount; i++) {
             if (studentArray[i].getId() == idToDelete) {
-                // Sinh viên được tìm thấy, thực hiện xóa
+                
                 found = true;
 
-                // Dời tất cả sinh viên phía sau lên một vị trí để xóa sinh viên hiện tại
+                
                 for (int j = i; j < studentCount - 1; j++) {
                     studentArray[j] = studentArray[j + 1];
                 }
 
-                // Giảm số lượng sinh viên
                 studentCount--;
 
                 System.out.println("Student with ID " + idToDelete + " deleted successfully!");
-                break; // Kết thúc vòng lặp sau khi tìm thấy và xóa
+                break;
             }
         }
 
